@@ -6,12 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.desuzed.brewerytestapp.App
 import com.desuzed.brewerytestapp.databinding.FragmentBreweryBinding
+import com.desuzed.brewerytestapp.model.pojo.Brewery
 import com.desuzed.brewerytestapp.ui.ViewModelFactory
 
-class BreweryFragment : Fragment() {
+class BreweryFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     private lateinit var binding: FragmentBreweryBinding
     private val breweryViewModel: BreweryViewModel by lazy {
         ViewModelProvider(
@@ -31,30 +32,53 @@ class BreweryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        fetchBreweryById()
+        observe()
+        binding.brewerySwipeRefresh.setOnRefreshListener(this)
+    }
+
+    private fun fetchBreweryById() {
         val id = arguments?.getString(BREWERY_ID)
-        if (id != null){
+        if (id != null) {
             breweryViewModel.fetchBrewery(id)
-        }
-        lifecycleScope.launchWhenCreated {
-            breweryViewModel.breweryStateFlow.collect{
-                binding.nameTextView.text = it.name
-                binding.typeTextView.text = it.breweryType
-                binding.countryTextView.text = it.country
-                binding.stateTextView.text = it.state
-                binding.cityTextView.text = it.city
-                binding.streetTextView.text = it.street
-                binding.address2TextView.text = it.address2
-                binding.address3ProvinceTextView.text = it.address3
-                binding.postalCodeTextView.text = it.postalCode
-                binding.latitudeTextView.text = it.latitude
-                binding.longitudeTextView.text = it.longitude
-                binding.phoneTextView.text = it.postalCode
-                binding.websiteUrlProvinceTextView.text = it.websiteUrl
-                binding.createdAtTextView.text = it.createdAt
-                binding.updatedAtCodeTextView.text = it.updatedAt
-            }
+            toggleRefresh(true)
         }
     }
+
+    private fun observe() {
+        breweryViewModel.breweryLiveData.observe(viewLifecycleOwner, {
+            updateUi(it)
+        })
+    }
+
+    private fun updateUi (brewery : Brewery){
+        binding.nameTextView.text = brewery.name
+        binding.typeTextView.text = brewery.breweryType
+        binding.countryTextView.text = brewery.country
+        binding.stateTextView.text = brewery.state
+        binding.cityTextView.text = brewery.city
+        binding.streetTextView.text = brewery.street
+        binding.address2TextView.text = brewery.address2
+        binding.address3ProvinceTextView.text = brewery.address3
+        binding.postalCodeTextView.text = brewery.postalCode
+        binding.latitudeTextView.text = brewery.latitude
+        binding.longitudeTextView.text = brewery.longitude
+        binding.phoneTextView.text = brewery.postalCode
+        binding.websiteUrlProvinceTextView.text = brewery.websiteUrl
+        binding.createdAtTextView.text = brewery.createdAt
+        binding.updatedAtCodeTextView.text = brewery.updatedAt
+        toggleRefresh(false)
+    }
+
+    private fun toggleRefresh(state: Boolean) {
+        binding.brewerySwipeRefresh.isRefreshing = state
+    }
+
+
+    override fun onRefresh() {
+        fetchBreweryById()
+    }
+
 
     companion object {
         const val BREWERY_ID = "BREWERY_ID"

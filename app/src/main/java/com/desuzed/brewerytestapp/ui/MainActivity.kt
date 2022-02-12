@@ -13,11 +13,5 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        lifecycleScope.launchWhenCreated {
-            val rawResponse = App.instance.getRepo().getBreweries()
-            Log.i("TAG", "onCreate: $rawResponse")
-        }
-
     }
 }
