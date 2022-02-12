@@ -9,11 +9,15 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 
 interface BreweryService {
     @GET("breweries")
     suspend fun fetchBreweriesList(): NetworkResponse<List<BreweryDto>, ErrorRetrofitDto>
+
+    @GET("breweries/{id}")
+    suspend fun fetchBrewery(@Path("id") id: String): NetworkResponse<BreweryDto, ErrorRetrofitDto>
 
     companion object {
         private const val baseUrl = "https://api.openbrewerydb.org/"

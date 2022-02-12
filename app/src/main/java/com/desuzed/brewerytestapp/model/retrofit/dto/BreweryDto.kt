@@ -5,23 +5,23 @@ import com.desuzed.brewerytestapp.model.pojo.Brewery
 import com.google.gson.annotations.SerializedName
 
 data class BreweryDto(
-    @SerializedName("id") var id: String = "",
-    @SerializedName("name") var name: String = "",
-    @SerializedName("brewery_type") var breweryType: String = "",
-    @SerializedName("street") var street: String = "",
-    @SerializedName("address_2") var address2: String = "",
-    @SerializedName("address_3") var address3: String = "",
-    @SerializedName("city") var city: String = "",
-    @SerializedName("state") var state: String = "",
-    @SerializedName("county_province") var countyProvince: String = "",
-    @SerializedName("postal_code") var postalCode: String = "",
-    @SerializedName("country") var country: String = "",
-    @SerializedName("longitude") var longitude: String = "",
-    @SerializedName("latitude") var latitude: String = "",
-    @SerializedName("phone") var phone: String = "",
-    @SerializedName("website_url") var websiteUrl: String = "",
-    @SerializedName("updated_at") var updatedAt: String = "",
-    @SerializedName("created_at") var createdAt: String = ""
+    @SerializedName("id") var id: String? = null,
+    @SerializedName("name") var name: String? = null,
+    @SerializedName("brewery_type") var breweryType: String? = null,
+    @SerializedName("street") var street: String? = null,
+    @SerializedName("address_2") var address2: String? = null,
+    @SerializedName("address_3") var address3: String? = null,
+    @SerializedName("city") var city: String? = null,
+    @SerializedName("state") var state: String? = null,
+    @SerializedName("county_province") var countyProvince: String? = null,
+    @SerializedName("postal_code") var postalCode: String? = null,
+    @SerializedName("country") var country: String? = null,
+    @SerializedName("longitude") var longitude: String? = null,
+    @SerializedName("latitude") var latitude: String? = null,
+    @SerializedName("phone") var phone: String? = null,
+    @SerializedName("website_url") var websiteUrl: String? = null,
+    @SerializedName("updated_at") var updatedAt: String? = null,
+    @SerializedName("created_at") var createdAt: String? = null
 )
 
 class BreweryMapper : EntityMapper<BreweryDto, Brewery> {
