@@ -9,24 +9,20 @@ import com.desuzed.brewerytestapp.model.pojo.Error
 import com.desuzed.brewerytestapp.model.pojo.FetchedResult
 import com.desuzed.brewerytestapp.model.repo.RepoApp
 import com.desuzed.brewerytestapp.ui.Event
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class BreweryViewModel(private val repo: RepoApp) : ViewModel() {
-    private val _breweryLiveData = MutableLiveData<Brewery>()
-    val breweryLiveData: LiveData<Brewery> = _breweryLiveData
+class BreweryListViewModel(private val repo: RepoApp) : ViewModel() {
+    private val _breweriesListLiveData = MutableLiveData<List<Brewery>>()
+    val breweriesListLiveData: LiveData<List<Brewery>> = _breweriesListLiveData
 
     private val _errorLiveData = MutableLiveData<Event<Error>> ()
     val errorLiveData: LiveData<Event<Error>> = _errorLiveData
 
-
-    fun fetchBrewery(id: String) = viewModelScope.launch {
-        when (val fetchedResult = repo.getBrewery(id)) {
-            is FetchedResult.Success -> _breweryLiveData.value = fetchedResult.returnedResult
+    fun fetchBreweriesList() = viewModelScope.launch {
+        when (val fetchedResult = repo.getBreweries()) {
+            is FetchedResult.Success -> _breweriesListLiveData.value = fetchedResult.returnedResult
             is FetchedResult.Fail -> _errorLiveData.value = Event(fetchedResult.failedResult)
         }
+
     }
 }

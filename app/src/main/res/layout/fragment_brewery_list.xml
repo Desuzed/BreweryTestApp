@@ -16,6 +16,7 @@
             android:id="@+id/breweryRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layoutAnimation="@anim/recycle_view_anim"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/brewery_item" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

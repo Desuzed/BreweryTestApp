@@ -1,10 +1,12 @@
 package com.desuzed.brewerytestapp.ui
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.DialogFragmentNavigator
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 fun Fragment.navigate(directions: Int, bundle: Bundle? = null) {
     val controller = findNavController()
@@ -18,4 +20,12 @@ fun Fragment.navigate(directions: Int, bundle: Bundle? = null) {
             controller.navigate(directions, bundle)
         }
     }
+}
+
+fun Fragment.toast(message: String) {
+    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+}
+
+fun toggleRefresh(swipeRefreshLayout: SwipeRefreshLayout, state: Boolean) {
+    swipeRefreshLayout.isRefreshing = state
 }

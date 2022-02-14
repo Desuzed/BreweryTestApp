@@ -6,27 +6,28 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.desuzed.brewerytestapp.App
 import com.desuzed.brewerytestapp.R
 import com.desuzed.brewerytestapp.databinding.FragmentBreweryListBinding
 import com.desuzed.brewerytestapp.model.pojo.Brewery
-import com.desuzed.brewerytestapp.ui.ViewModelFactory
+import com.desuzed.brewerytestapp.model.pojo.Error
+import com.desuzed.brewerytestapp.ui.*
 import com.desuzed.brewerytestapp.ui.adapter.BreweryAdapter
 import com.desuzed.brewerytestapp.ui.adapter.OnBreweryItemClickListener
-import com.desuzed.brewerytestapp.ui.navigate
 
 class BreweryListFragment : Fragment(), OnBreweryItemClickListener,
     SwipeRefreshLayout.OnRefreshListener {
     private lateinit var binding: FragmentBreweryListBinding
     private val breweryAdapter = BreweryAdapter(this)
-    private val breweryViewModel: BreweryViewModel by lazy {
+    private val breweryListViewModel: BreweryListViewModel by lazy {
         ViewModelProvider(
             requireActivity(), ViewModelFactory(
                 App.instance.getRepo()
             )
-        ).get(BreweryViewModel::class.java)
+        ).get(BreweryListViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -42,11 +43,12 @@ class BreweryListFragment : Fragment(), OnBreweryItemClickListener,
         setupViews()
         fetchBreweriesList()
         observe()
+        collectError()
     }
 
     private fun fetchBreweriesList() {
-        breweryViewModel.fetchBreweriesList()
-        toggleRefresh(true)
+        breweryListViewModel.fetchBreweriesList()
+        toggleRefresh(binding.breweryListSwipeRefresh, false)
     }
 
     private fun setupViews() {
@@ -55,14 +57,29 @@ class BreweryListFragment : Fragment(), OnBreweryItemClickListener,
     }
 
     private fun observe() {
-        breweryViewModel.breweriesListLiveData.observe(viewLifecycleOwner, {
+        breweryListViewModel.breweriesListLiveData.observe(viewLifecycleOwner, {
             breweryAdapter.submitList(it)
-            toggleRefresh(false)
+            toggleRefresh(binding.breweryListSwipeRefresh, false)
         })
     }
 
-    private fun toggleRefresh(state: Boolean) {
-        binding.breweryListSwipeRefresh.isRefreshing = state
+    private val errorObserver = Observer <Event<Error>> { event ->
+        val content = event.getContentIfNotHandled()
+        if (content != null){
+            toast(content.message.toString())
+        }
+        toggleRefresh(binding.breweryListSwipeRefresh, false)
+    }
+
+    private fun collectError() {
+        breweryListViewModel.errorLiveData.observe(viewLifecycleOwner, errorObserver)
+
+//        lifecycleScope.launchWhenCreated {
+//            breweryListViewModel.errorStateFlow.collect {
+//                toast(it.message.toString())
+//                toggleRefresh(binding.breweryListSwipeRefresh, false)
+//            }
+//        }
     }
 
     override fun onClick(brewery: Brewery) {
@@ -74,4 +91,8 @@ class BreweryListFragment : Fragment(), OnBreweryItemClickListener,
         fetchBreweriesList()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        breweryListViewModel.errorLiveData.removeObserver(errorObserver)
+    }
 }

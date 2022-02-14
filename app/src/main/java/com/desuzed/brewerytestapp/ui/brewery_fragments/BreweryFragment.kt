@@ -5,12 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.desuzed.brewerytestapp.App
 import com.desuzed.brewerytestapp.databinding.FragmentBreweryBinding
 import com.desuzed.brewerytestapp.model.pojo.Brewery
+import com.desuzed.brewerytestapp.model.pojo.Error
+import com.desuzed.brewerytestapp.ui.Event
 import com.desuzed.brewerytestapp.ui.ViewModelFactory
+import com.desuzed.brewerytestapp.ui.toast
+import com.desuzed.brewerytestapp.ui.toggleRefresh
 
 class BreweryFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     private lateinit var binding: FragmentBreweryBinding
@@ -41,14 +47,27 @@ class BreweryFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         val id = arguments?.getString(BREWERY_ID)
         if (id != null) {
             breweryViewModel.fetchBrewery(id)
-            toggleRefresh(true)
+            toggleRefresh(binding.brewerySwipeRefresh, true)
         }
     }
 
+
+
     private fun observe() {
-        breweryViewModel.breweryLiveData.observe(viewLifecycleOwner, {
-            updateUi(it)
-        })
+        breweryViewModel.breweryLiveData.observe(viewLifecycleOwner, breweryObserver)
+        breweryViewModel.errorLiveData.observe(viewLifecycleOwner, errorObserver)
+    }
+
+    private val breweryObserver = Observer<Brewery>{
+        updateUi(it)
+    }
+
+    private val errorObserver = Observer <Event<Error>> { event ->
+        val content = event.getContentIfNotHandled()
+        if (content != null){
+            toast(content.message.toString())
+        }
+        toggleRefresh(binding.brewerySwipeRefresh, false)
     }
 
     private fun updateUi (brewery : Brewery){
@@ -67,13 +86,16 @@ class BreweryFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         binding.websiteUrlProvinceTextView.text = brewery.websiteUrl
         binding.createdAtTextView.text = brewery.createdAt
         binding.updatedAtCodeTextView.text = brewery.updatedAt
-        toggleRefresh(false)
+        toggleRefresh(binding.brewerySwipeRefresh, false)
     }
 
-    private fun toggleRefresh(state: Boolean) {
-        binding.brewerySwipeRefresh.isRefreshing = state
-    }
 
+
+    override fun onDestroy() {
+        super.onDestroy()
+        breweryViewModel.breweryLiveData.removeObserver(breweryObserver)
+        breweryViewModel.errorLiveData.removeObserver(errorObserver)
+    }
 
     override fun onRefresh() {
         fetchBreweryById()

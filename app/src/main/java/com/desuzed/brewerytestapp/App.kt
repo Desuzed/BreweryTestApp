@@ -1,6 +1,8 @@
 package com.desuzed.brewerytestapp
 
 import android.app.Application
+import com.desuzed.brewerytestapp.model.ErrorProviderImpl
+import com.desuzed.brewerytestapp.model.repo.LocalDataSourceImpl
 import com.desuzed.brewerytestapp.model.repo.RemoteDataSourceImpl
 import com.desuzed.brewerytestapp.model.repo.RepoApp
 import com.desuzed.brewerytestapp.model.repo.RepoAppImpl
@@ -8,7 +10,8 @@ import com.desuzed.brewerytestapp.model.repo.RepoAppImpl
 class App : Application() {
     private val repositoryApp by lazy {
         RepoAppImpl(
-            RemoteDataSourceImpl()
+            RemoteDataSourceImpl(),
+            LocalDataSourceImpl(ErrorProviderImpl(resources))
         )
     }
 
