@@ -1,6 +1,8 @@
 package com.desuzed.brewerytestapp.ui
 
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.DialogFragmentNavigator
@@ -28,4 +30,11 @@ fun Fragment.toast(message: String) {
 
 fun toggleRefresh(swipeRefreshLayout: SwipeRefreshLayout, state: Boolean) {
     swipeRefreshLayout.isRefreshing = state
+}
+
+fun toggleButtonVisibility (button: Button, state : Boolean){
+    when (state){
+        true -> button.visibility = View.VISIBLE
+        false -> button.visibility = View.GONE
+    }
 }

@@ -1,7 +1,24 @@
 <resources>
     <string name="app_name">BreweryTestApp</string>
+    <string name="name">Name</string>
+    <string name="brewery_type">Brewery type</string>
+    <string name="country">Country</string>
+    <string name="country_province">Country province</string>
+    <string name="state">State</string>
+    <string name="city">City</string>
+    <string name="street">Street</string>
+    <string name="address_2">Address2</string>
+    <string name="address_3">Address3</string>
+    <string name="postal_code">Postal code</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="phone">Phone</string>
+    <string name="website_url">Website url</string>
+    <string name="created_at">Created at</string>
+    <string name="updated_at">Updated at</string>
     <string name="api_error">Sorry, something went wrong with brewery information provider. API error.</string>
     <string name="network_error">Network error. Check your internet connection.</string>
     <string name="unknown_error">Sorry, unknown error has happened.</string>
+    <string name="refresh">Refresh</string>
 
 </resources>

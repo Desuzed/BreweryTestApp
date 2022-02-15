@@ -1,149 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/brewerySwipeRefresh"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/margin_main"
     tools:context=".ui.brewery_fragments.BreweryFragment">
 
-    <ScrollView
+    <TextView
+        android:id="@+id/errorTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/error_background"
+        android:gravity="center"
+        android:visibility="gone"
+        style="@style/TextViewStyle"
+        android:textSize="14sp"
+        tools:text="@string/unknown_error" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/brewerySwipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/nameTextView"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                tools:text="Name" />
+                android:orientation="vertical"
+                android:padding="@dimen/margin_main">
 
-            <TextView
-                android:id="@+id/typeTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_main"
-                android:textSize="18sp"
-                tools:text="Type" />
+                <TextView
+                    android:id="@+id/nameTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextViewStyle"
+                    tools:text="Name" />
 
-            <TextView
-                android:id="@+id/countryTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_main"
-                android:textSize="18sp"
-                tools:text="Country" />
+                <TextView
+                    android:id="@+id/typeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_main"
+                    style="@style/TextViewStyle"
+                    tools:text="Type" />
 
-            <TextView
-                android:id="@+id/countyProvinceTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_main"
-                android:textSize="18sp"
-                tools:text="County province" />
+                <TextView
+                    android:id="@+id/countryTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_main"
+                    style="@style/TextViewStyle"
+                    tools:text="Country" />
 
-            <TextView
-                android:id="@+id/stateTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_main"
-                android:textSize="18sp"
-                tools:text="State" />
+                <TextView
+                    android:id="@+id/countyProvinceTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_main"
+                    style="@style/TextViewStyle"
+                    tools:text="County province" />
 
-            <TextView
-                android:id="@+id/cityTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_main"
-                android:textSize="18sp"
-                tools:text="City" />
+                <TextView
+                    android:id="@+id/stateTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_main"
+                    style="@style/TextViewStyle"
+                    tools:text="State" />
 
-            <TextView
-                android:id="@+id/streetTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_main"
-                android:textSize="18sp"
-                tools:text="Street" />
+                <TextView
+                    android:id="@+id/cityTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_main"
+                    style="@style/TextViewStyle"
+                    tools:text="City" />
 
-            <TextView
-                android:id="@+id/address2TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_main"
-                android:textSize="18sp"
-                tools:text="Address2" />
+                <TextView
+                    android:id="@+id/streetTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_main"
+                    style="@style/TextViewStyle"
+                    tools:text="Street" />
 
-            <TextView
-                android:id="@+id/address3ProvinceTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_main"
-                android:textSize="18sp"
-                tools:text="Address3" />
+                <TextView
+                    android:id="@+id/address2TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_main"
+                    style="@style/TextViewStyle"
+                    tools:text="Address2" />
 
-            <TextView
-                android:id="@+id/postalCodeTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_main"
-                android:textSize="18sp"
-                tools:text="Postal code" />
+                <TextView
+                    android:id="@+id/address3ProvinceTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_main"
+                    style="@style/TextViewStyle"
+                    tools:text="Address3" />
 
-            <TextView
-                android:id="@+id/longitudeTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_main"
-                android:textSize="18sp"
-                tools:text="Longitude" />
+                <TextView
+                    android:id="@+id/postalCodeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_main"
+                    style="@style/TextViewStyle"
+                    tools:text="Postal code" />
+
+                <TextView
+                    android:id="@+id/longitudeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_main"
+                    style="@style/TextViewStyle"
+                    tools:text="Longitude" />
 
 
-            <TextView
-                android:id="@+id/latitudeTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_main"
-                android:textSize="18sp"
-                tools:text="Latitude" />
+                <TextView
+                    android:id="@+id/latitudeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_main"
+                    style="@style/TextViewStyle"
+                    tools:text="Latitude" />
 
-            <TextView
-                android:id="@+id/phoneTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_main"
-                android:textSize="18sp"
-                tools:text="Phone" />
+                <TextView
+                    android:id="@+id/phoneTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_main"
+                    style="@style/TextViewStyle"
+                    tools:text="Phone" />
 
-            <TextView
-                android:id="@+id/websiteUrlProvinceTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_main"
-                android:textSize="18sp"
-                tools:text="Website Url" />
+                <TextView
+                    android:id="@+id/websiteUrlTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_main"
+                    android:autoLink="web"
+                    style="@style/TextViewStyle"
+                    tools:text="Website Url" />
 
-            <TextView
-                android:id="@+id/updatedAtCodeTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_main"
-                android:textSize="18sp"
-                tools:text="Updated at" />
+                <TextView
+                    android:id="@+id/updatedAtCodeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_main"
+                    style="@style/TextViewStyle"
+                    tools:text="Updated at" />
 
-            <TextView
-                android:id="@+id/createdAtTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_main"
-                android:textSize="18sp"
-                tools:text="Created at" />
+                <TextView
+                    android:id="@+id/createdAtTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_main"
+                    style="@style/TextViewStyle"
+                    tools:text="Created at" />
 
-        </LinearLayout>
-    </ScrollView>
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+                <Button
+                    android:id="@+id/refreshBreweryButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_main"
+                    android:text="@string/refresh" />
+
+            </LinearLayout>
+        </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</LinearLayout>

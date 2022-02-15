@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:backgroundTint="@color/teal_200"
+    android:backgroundTint="?attr/background_primary"
     app:cardCornerRadius="10dp"
     android:layout_margin="4dp"
     xmlns:tools="http://schemas.android.com/tools">
@@ -19,24 +19,23 @@
             android:id="@+id/nameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            style="@style/TextViewStyle"
             tools:text="Name" />
 
         <TextView
             android:id="@+id/typeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_main"
-        android:textSize="16sp"
-        tools:text="Type"
-        />
+            style="@style/TextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_main"
+            tools:text="Type" />
 
         <TextView
             android:id="@+id/countryTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_main"
-            android:textSize="14sp"
+            style="@style/TextViewStyle"
             tools:text="Country" />
     </LinearLayout>
 

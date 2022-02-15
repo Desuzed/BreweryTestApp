@@ -44,11 +44,13 @@ class BreweryListFragment : Fragment(), OnBreweryItemClickListener,
         fetchBreweriesList()
         observe()
         collectError()
+        setOnClickListener()
     }
 
     private fun fetchBreweriesList() {
+        toggleRefresh(binding.breweryListSwipeRefresh, true)
+        toggleButtonVisibility(binding.refreshBreweryListButton, false)
         breweryListViewModel.fetchBreweriesList()
-        toggleRefresh(binding.breweryListSwipeRefresh, false)
     }
 
     private fun setupViews() {
@@ -60,26 +62,30 @@ class BreweryListFragment : Fragment(), OnBreweryItemClickListener,
         breweryListViewModel.breweriesListLiveData.observe(viewLifecycleOwner, {
             breweryAdapter.submitList(it)
             toggleRefresh(binding.breweryListSwipeRefresh, false)
+            toggleButtonVisibility(binding.refreshBreweryListButton, false)
+            binding.errorListTextView.visibility = View.GONE
         })
+    }
+
+    private fun setOnClickListener (){
+        binding.refreshBreweryListButton.setOnClickListener{
+            fetchBreweriesList()
+        }
     }
 
     private val errorObserver = Observer <Event<Error>> { event ->
         val content = event.getContentIfNotHandled()
         if (content != null){
-            toast(content.message.toString())
+           // toast(content.message.toString())
+            toggleRefresh(binding.breweryListSwipeRefresh, false)
+            toggleButtonVisibility(binding.refreshBreweryListButton, true)
+            binding.errorListTextView.text = content.message
+            binding.errorListTextView.visibility = View.VISIBLE
         }
-        toggleRefresh(binding.breweryListSwipeRefresh, false)
     }
 
     private fun collectError() {
         breweryListViewModel.errorLiveData.observe(viewLifecycleOwner, errorObserver)
-
-//        lifecycleScope.launchWhenCreated {
-//            breweryListViewModel.errorStateFlow.collect {
-//                toast(it.message.toString())
-//                toggleRefresh(binding.breweryListSwipeRefresh, false)
-//            }
-//        }
     }
 
     override fun onClick(brewery: Brewery) {
