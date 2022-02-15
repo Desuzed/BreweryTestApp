@@ -67,16 +67,16 @@ class BreweryListFragment : Fragment(), OnBreweryItemClickListener,
         })
     }
 
-    private fun setOnClickListener (){
-        binding.refreshBreweryListButton.setOnClickListener{
+    private fun setOnClickListener() {
+        binding.refreshBreweryListButton.setOnClickListener {
             fetchBreweriesList()
         }
     }
 
-    private val errorObserver = Observer <Event<Error>> { event ->
+    private val errorObserver = Observer<Event<Error>> { event ->
         val content = event.getContentIfNotHandled()
-        if (content != null){
-           // toast(content.message.toString())
+        if (content != null) {
+            // toast(content.message.toString())
             toggleRefresh(binding.breweryListSwipeRefresh, false)
             toggleButtonVisibility(binding.refreshBreweryListButton, true)
             binding.errorListTextView.text = content.message

@@ -72,7 +72,7 @@ class BreweryFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         binding.errorTextView.visibility = View.GONE
     }
 
-    private val errorObserver = Observer <Event<Error>> { event ->
+    private val errorObserver = Observer<Event<Error>> { event ->
         val content = event.getContentIfNotHandled()
         if (content != null) {
             // toast(content.message.toString())
@@ -85,7 +85,7 @@ class BreweryFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun updateUi (brewery : Brewery) {
+    private fun updateUi(brewery: Brewery) {
         binding.nameTextView.text = resources.getString(R.string.name) + ": ${brewery.name}"
         binding.typeTextView.text =
             resources.getString(R.string.brewery_type) + ": ${brewery.breweryType}"

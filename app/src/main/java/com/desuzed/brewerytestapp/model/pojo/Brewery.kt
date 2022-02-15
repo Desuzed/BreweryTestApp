@@ -18,25 +18,4 @@ data class Brewery(
     val websiteUrl: String?,
     val updatedAt: String?,
     val createdAt: String?
-) {
-    companion object {
-        fun emptyBrewery(): Brewery =
-            Brewery("",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "")
-    }
-}
+)

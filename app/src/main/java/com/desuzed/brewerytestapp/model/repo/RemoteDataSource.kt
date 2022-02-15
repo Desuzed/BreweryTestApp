@@ -11,7 +11,7 @@ class RemoteDataSourceImpl : RemoteDataSource {
             .getInstance()
             .fetchBreweriesList()
 
-    override suspend fun fetchBrewery(id : String): NetworkResponse<BreweryDto, ErrorRetrofitDto> =
+    override suspend fun fetchBrewery(id: String): NetworkResponse<BreweryDto, ErrorRetrofitDto> =
         BreweryService
             .getInstance()
             .fetchBrewery(id)
@@ -19,5 +19,5 @@ class RemoteDataSourceImpl : RemoteDataSource {
 
 interface RemoteDataSource {
     suspend fun fetchBreweries(): NetworkResponse<List<BreweryDto>, ErrorRetrofitDto>
-    suspend fun fetchBrewery(id : String): NetworkResponse<BreweryDto, ErrorRetrofitDto>
+    suspend fun fetchBrewery(id: String): NetworkResponse<BreweryDto, ErrorRetrofitDto>
 }

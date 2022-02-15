@@ -15,7 +15,7 @@ class BreweryListViewModel(private val repo: RepoApp) : ViewModel() {
     private val _breweriesListLiveData = MutableLiveData<List<Brewery>>()
     val breweriesListLiveData: LiveData<List<Brewery>> = _breweriesListLiveData
 
-    private val _errorLiveData = MutableLiveData<Event<Error>> ()
+    private val _errorLiveData = MutableLiveData<Event<Error>>()
     val errorLiveData: LiveData<Event<Error>> = _errorLiveData
 
     fun fetchBreweriesList() = viewModelScope.launch {

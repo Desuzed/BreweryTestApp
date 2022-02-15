@@ -32,8 +32,8 @@ fun toggleRefresh(swipeRefreshLayout: SwipeRefreshLayout, state: Boolean) {
     swipeRefreshLayout.isRefreshing = state
 }
 
-fun toggleButtonVisibility (button: Button, state : Boolean){
-    when (state){
+fun toggleButtonVisibility(button: Button, state: Boolean) {
+    when (state) {
         true -> button.visibility = View.VISIBLE
         false -> button.visibility = View.GONE
     }

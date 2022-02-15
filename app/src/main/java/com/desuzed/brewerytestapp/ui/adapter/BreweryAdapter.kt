@@ -36,7 +36,7 @@ class BreweryAdapter(
             binding.nameTextView.text = current.name
             binding.typeTextView.text = current.breweryType
             binding.countryTextView.text = current.country
-            itemView.setOnClickListener{
+            itemView.setOnClickListener {
                 onItemClickListener.onClick(current)
             }
         }

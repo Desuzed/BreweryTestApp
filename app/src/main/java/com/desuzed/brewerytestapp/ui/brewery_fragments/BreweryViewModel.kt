@@ -9,17 +9,13 @@ import com.desuzed.brewerytestapp.model.pojo.Error
 import com.desuzed.brewerytestapp.model.pojo.FetchedResult
 import com.desuzed.brewerytestapp.model.repo.RepoApp
 import com.desuzed.brewerytestapp.ui.Event
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class BreweryViewModel(private val repo: RepoApp) : ViewModel() {
     private val _breweryLiveData = MutableLiveData<Brewery>()
     val breweryLiveData: LiveData<Brewery> = _breweryLiveData
 
-    private val _errorLiveData = MutableLiveData<Event<Error>> ()
+    private val _errorLiveData = MutableLiveData<Event<Error>>()
     val errorLiveData: LiveData<Event<Error>> = _errorLiveData
 
 
